@@ -13,16 +13,20 @@
 	$pimatic['poll'] = 5000;                // Polling interval
 	
 	//Thermostaat
-	$therm['id']     = 'thermostaat';       // ID of the thermostat device
-	$therm['eco']    = 10;					// Eco temperature
-	$therm['comf']   = 20;				    // Comfort temperature
+	$therm[0]['name']     = 'Woonkamer';
+	$therm[0]['id']     = 'livingroom-thermostat';              // ID of the thermostat device
+	$therm[0]['sensor']   = 'livingroom-temp.temperature';      // Temperature sensor variable
+	$therm[0]['eco']    = 10;					                // Eco temperature
+	$therm[0]['comf']   = 20;				                    // Comfort temperature
 	
-	
-	//Temperature sensor
-	$temp['id']      = 'woonkamer-temp.temperature';	// The full variable of the device like: livingroom.temperature
+	$therm[1]['name']     = 'Keuken';
+	$therm[1]['id']     = 'kitchen-thermostat';                 // ID of the thermostat device
+	$therm[1]['sensor']   = 'kitchen-temp.temperature';         // Temperature sensor variable
+	$therm[1]['eco']    = 10;					                // Eco temperature
+	$therm[1]['comf']   = 19;				                    // Comfort temperature
 	
 	//Lights
-	$light['id']     = 'woonkamer'			// ID of the light switch
-	//$light['id']   = '';				    // Make empty if lights are not used
+	$light['id']     = 'woonkamer';			// ID of the light switch
+	//$light['id']   = '';                  // Make empty if lights are not used
 	
 ?>

@@ -24,7 +24,7 @@
 		<link rel="stylesheet" href="css/animations.css" type="text/css" media="screen" charset="utf-8">
 		<?php if(loggedIn()){ include('inc/script.php'); } ?>
 	</head>
-	<body>
+	<body class="fadeInn">
 		<?php
     		if(!loggedIn()){
         		get_login();

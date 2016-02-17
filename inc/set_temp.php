@@ -3,7 +3,7 @@
     	include('../config.php');
     	include('functions.php');
     	if(isset($_GET['temp'])){
-        	setValue($therm['id'].'/changeTemperatureTo?temperatureSetpoint='.$_GET['temp']);				
+        	setValue($_GET['id'].'/changeTemperatureTo?temperatureSetpoint='.$_GET['temp']);				
     	}
 	}
 ?>
