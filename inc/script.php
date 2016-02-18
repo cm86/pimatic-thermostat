@@ -5,7 +5,7 @@
 	    FastClick.attach(document.body);
 	});
 	<?php foreach($therm as $device){ ?>
-	var setTemp_<?php echo cleanString($device['id']); ?> = <?php echo getValue($device['id'].'.temperatureSetpoint'); ?>;
+	var setTemp_<?php echo cleanString($device['id']); ?> = <?php echo getValue($device['id'].'.temperatureSetpoint',$device['server']); ?>;
 	var timer_<?php echo cleanString($device['id']); ?>;
 	<?php } ?>
 	
@@ -15,21 +15,21 @@
 	<?php foreach($therm as $device){ ?>	
 		
 
-		$(".up_<?php echo cleanString($device['id']); ?>").click(function() {	
+		$(".up_<?php echo $device['id']; ?>").click(function() {	
 			setTemp_<?php echo cleanString($device['id']); ?> = setTemp_<?php echo cleanString($device['id']); ?> + .5;
 			updateTemp();
 		});
-		$(".down_<?php echo cleanString($device['id']); ?>").click(function() {		
+		$(".down_<?php echo $device['id']; ?>").click(function() {		
 			setTemp_<?php echo cleanString($device['id']); ?> = setTemp_<?php echo cleanString($device['id']); ?> - .5;
 			updateTemp();
 		});
 		
 		// MODES
-		$(".eco_<?php echo cleanString($device['id']); ?>").click(function() {
+		$(".eco_<?php echo $device['id']; ?>").click(function() {
 			setTemp_<?php echo cleanString($device['id']); ?> = <?php echo $device['eco']; ?>;		
 			updateTemp();
 		});
-		$(".comf_<?php echo cleanString($device['id']); ?>").click(function() {		
+		$(".comf_<?php echo $device['id']; ?>").click(function() {		
 			setTemp_<?php echo cleanString($device['id']); ?> = <?php echo $device['comf']; ?>;		
 			updateTemp();
 		});
@@ -55,11 +55,11 @@
 			setTemp_<?php echo cleanString($device['id']); ?> = 5;
 		}
 		
-		$("#set_temp .val-<?php echo cleanString($device['id']); ?>").html(showTemp_<?php echo cleanString($device['id']); ?>());   			
+		$("#set_temp .val-<?php echo $device['id']; ?>").html(showTemp_<?php echo cleanString($device['id']); ?>());   			
 		clearTimeout(timer_<?php echo cleanString($device['id']); ?>);
 		timer_<?php echo cleanString($device['id']); ?> = setTimeout(function(){
     		
-            $("#dump").load( "inc/set_temp.php?id=<?php echo cleanString($device['id']); ?>&temp=" + setTemp_<?php echo cleanString($device['id']); ?> );
+            $("#dump").load( "inc/set_temp.php?id=<?php echo $device['id']; ?>&server=<?php echo $device['server']; ?>&temp=" + setTemp_<?php echo cleanString($device['id']); ?> );
             wait = false;
         }, 1500);
         <?php } ?>
@@ -75,15 +75,15 @@
 	function poll(){
 		if(!wait){
     		<?php foreach($therm as $device){ ?>
-		    $("#get_temp .val-<?php echo cleanString($device['id']); ?>").load( "inc/get_temp.php?id=<?php echo $device['sensor']; ?>&sensor" );
-		    $.get( "inc/get_temp.php?id=<?php echo cleanString($device['id']); ?>&setPoint", function( data ) {
+		    $("#get_temp .val-<?php echo $device['id']; ?>").load( "inc/get_temp.php?id=<?php echo $device['sensor']; ?>&server=<?php echo $device['server']; ?>&sensor" );
+		    $.get( "inc/get_temp.php?id=<?php echo $device['id']; ?>&server=<?php echo $device['server']; ?>&setPoint", function( data ) {
               setTemp_<?php echo cleanString($device['id']); ?> = parseFloat(data);
             });
-		    $("#set_temp .val-<?php echo cleanString($device['id']); ?>").html(showTemp_<?php echo cleanString($device['id']); ?>());
+		    $("#set_temp .val-<?php echo $device['id']; ?>").html(showTemp_<?php echo cleanString($device['id']); ?>());
 		    <?php } ?>
 	    }
 	}
 	
-	setInterval(function(){ poll(); }, <?php echo $pimatic['poll']; ?>);
+	setInterval(function(){ poll(); }, <?php echo $app['poll']; ?>);
 
 </script>

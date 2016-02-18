@@ -1,14 +1,14 @@
 <?php
 	if(count(get_included_files()) ==1) die("Not permitted");
 	
-	function getValue($var) {
+	function getValue($var, $server = 'default') {
 		global $pimatic;
-		if($pimatic['ssl']){
+		if($pimatic[$server]['ssl']){
 		    $url = 'https://';
 	    } else {
 		    $url = 'http://';
 	    }
-	    $url .= $pimatic['user'] . ":" . $pimatic['pass'] . "@" . $pimatic['host'] . ":" . $pimatic['port'] . "/api/variables/" . $var;
+	    $url .= $pimatic[$server]['user'] . ":" . $pimatic[$server]['pass'] . "@" . $pimatic[$server]['host'] . ":" . $pimatic[$server]['port'] . "/api/variables/" . $var;
 	   
 	    $curl = curl_init();
 		curl_setopt ($curl, CURLOPT_URL, $url);
@@ -23,14 +23,14 @@
 		
     }
     
-    function setValue($var){
+    function setValue($var, $server = 'default'){
 	    global $pimatic;
-	    if($pimatic['ssl']){
+	    if($pimatic[$server]['ssl']){
 		    $url = 'https://';
 	    } else {
 		    $url = 'http://';
 	    }
-	    $url .= $pimatic['user'] . ":" . $pimatic['pass'] . "@" . $pimatic['host'] . ":" . $pimatic['port'].'/api/device/'.$var;
+	    $url .= $pimatic[$server]['user'] . ":" . $pimatic[$server]['pass'] . "@" . $pimatic[$server]['host'] . ":" . $pimatic[$server]['port'].'/api/device/'.$var;
 	    file_get_contents($url);
     }
     
