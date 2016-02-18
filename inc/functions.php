@@ -36,7 +36,7 @@
     
     function loggedIn(){
         global $app;
-        if($_COOKIE['login'] == pass($app['password'])) {
+        if($_COOKIE['login'] == pass($app['password']) or $app['password'] == '') {
             return true;
         } else {
             return false;
