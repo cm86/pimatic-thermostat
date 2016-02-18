@@ -2,7 +2,7 @@
 	include('config.php');
 	include('inc/functions.php');
 	include('inc/pages.php');
-	if($_POST['password'] == $app['password']){
+	if($_POST['password'] == $app['password'] and $app['password'] != ''){
         setcookie('login', pass($app['password']), time()+3155692, "/");
         header('location: http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']);
     }
