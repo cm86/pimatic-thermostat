@@ -50,4 +50,10 @@
     	return hash("sha256", md5($salt.$string).sha1($string));
     }
     
+    function cleanString($string){
+        $string = str_replace('-', '_', $string); // Remove dashes
+        $string = str_replace(' ', '_', $string); // Remove spaces
+        return $string;
+    }
+    
 ?>
